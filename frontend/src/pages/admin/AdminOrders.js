@@ -78,36 +78,27 @@ export default function AdminOrders() {
   return (
     <div className="space-y-5">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex items-center justify-between gap-2">
         <div>
-          <h1 className="text-2xl font-black" style={{ color: t.text, fontFamily: 'Poppins,sans-serif' }}>Orders</h1>
-          <p className="text-sm mt-0.5" style={{ color: t.textMuted }}>
+          <h1 className="text-xl sm:text-2xl font-black" style={{ color: t.text, fontFamily: 'Poppins,sans-serif' }}>Orders</h1>
+          <p className="text-xs sm:text-sm mt-0.5" style={{ color: t.textMuted }}>
             {displayed.length} order{displayed.length !== 1 ? 's' : ''}
-            {date ? ` on ${new Date(date + 'T00:00:00').toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}` : ' total'}
+            {date ? ` on ${new Date(date + 'T00:00:00').toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}` : ' total'}
           </p>
         </div>
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex flex-wrap items-center gap-1.5">
           <div className="relative flex items-center">
-            <FiCalendar size={13} className="absolute left-3 pointer-events-none" style={{ color: t.textMuted }} />
+            <FiCalendar size={12} className="absolute left-2.5 pointer-events-none" style={{ color: t.textMuted }} />
             <input type="date" value={date} max={todayStr()} onChange={e => setDate(e.target.value)}
-              className="text-sm rounded-xl pl-8 pr-3 py-2.5 focus:outline-none"
+              className="text-xs rounded-xl pl-7 pr-2 py-2 focus:outline-none"
               style={inputCls} />
           </div>
-          {date && (
-            <button onClick={() => setDate('')}
-              className="text-xs px-3 py-2.5 rounded-xl transition-all"
-              style={{ border: `1px solid ${t.border}`, color: t.textMuted }}
-              onMouseEnter={e => e.currentTarget.style.color = t.text}
-              onMouseLeave={e => e.currentTarget.style.color = t.textMuted}>
-              Clear date
-            </button>
-          )}
           <div className="relative flex items-center">
-            <FiFilter size={13} className="absolute left-3 pointer-events-none" style={{ color: t.textMuted }} />
+            <FiFilter size={12} className="absolute left-2.5 pointer-events-none" style={{ color: t.textMuted }} />
             <select value={filter} onChange={e => setFilter(e.target.value)}
-              className="text-sm rounded-xl pl-8 pr-4 py-2.5 focus:outline-none appearance-none"
+              className="text-xs rounded-xl pl-7 pr-3 py-2 focus:outline-none appearance-none"
               style={inputCls}>
-              <option value="">All Statuses</option>
+              <option value="">All</option>
               {STATUSES.map(s => <option key={s} value={s}>{s}</option>)}
             </select>
           </div>

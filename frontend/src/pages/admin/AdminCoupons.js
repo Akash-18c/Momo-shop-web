@@ -181,15 +181,15 @@ export default function AdminCoupons() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between flex-wrap gap-3">
+      <div className="flex items-center justify-between gap-2">
         <div>
-          <h1 className="text-2xl font-black" style={{ color: t.text, fontFamily: 'Poppins,sans-serif' }}>Coupons</h1>
-          <p className="text-sm mt-0.5" style={{ color: t.textMuted }}>
+          <h1 className="text-xl sm:text-2xl font-black" style={{ color: t.text, fontFamily: 'Poppins,sans-serif' }}>Coupons</h1>
+          <p className="text-xs sm:text-sm mt-0.5" style={{ color: t.textMuted }}>
             <span style={{ color: '#4ade80' }}>{active.length} active</span> · {inactive.length} expired
           </p>
         </div>
         <motion.button whileTap={{ scale: 0.95 }} onClick={() => setShowForm(v => !v)}
-          className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all"
+          className="flex items-center gap-1.5 px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex-shrink-0"
           style={showForm
             ? { background: t.navHover, color: t.textMuted, border: `1px solid ${t.border}` }
             : { background: 'linear-gradient(135deg,#c9a84c,#f0d060)', color: '#1a0e00', boxShadow: '0 4px 16px rgba(201,168,76,0.3)' }}>

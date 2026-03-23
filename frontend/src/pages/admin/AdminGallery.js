@@ -97,14 +97,16 @@ export default function AdminGallery() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-black" style={{ color: t.text, fontFamily: 'Poppins,sans-serif' }}>Gallery</h1>
-        <p className="text-sm mt-0.5" style={{ color: t.textMuted }}>{images.length} images</p>
+      <div className="flex items-center justify-between gap-2">
+        <div>
+          <h1 className="text-xl sm:text-2xl font-black" style={{ color: t.text, fontFamily: 'Poppins,sans-serif' }}>Gallery</h1>
+          <p className="text-xs sm:text-sm mt-0.5" style={{ color: t.textMuted }}>{images.length} images</p>
+        </div>
       </div>
 
       {/* Upload Card */}
-      <div className="rounded-2xl p-6" style={{ background: t.card, border: `1px solid ${t.border}` }}>
-        <h2 className="font-bold text-lg mb-4" style={{ color: t.text }}>Add New Image</h2>
+      <div className="rounded-2xl p-4 sm:p-6" style={{ background: t.card, border: `1px solid ${t.border}` }}>
+        <h2 className="font-bold text-base sm:text-lg mb-3 sm:mb-4" style={{ color: t.text }}>Add New Image</h2>
 
         {/* Tabs */}
         <div className="flex gap-1 p-1 rounded-xl mb-5 w-fit"

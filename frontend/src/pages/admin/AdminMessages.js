@@ -48,10 +48,10 @@ export default function AdminMessages() {
   return (
     <div className="space-y-5">
       {/* Header */}
-      <div className="flex items-center justify-between flex-wrap gap-3">
+      <div className="flex items-center justify-between gap-2">
         <div>
-          <h1 className="text-2xl font-black" style={{ color: t.text, fontFamily: 'Poppins,sans-serif' }}>Messages</h1>
-          <p className="text-sm mt-0.5" style={{ color: t.textMuted }}>
+          <h1 className="text-xl sm:text-2xl font-black" style={{ color: t.text, fontFamily: 'Poppins,sans-serif' }}>Messages</h1>
+          <p className="text-xs sm:text-sm mt-0.5" style={{ color: t.textMuted }}>
             {unread > 0 ? <span style={{ color: '#c9a84c' }}>{unread} unread</span> : 'All caught up'} · {messages.length} total
           </p>
         </div>
@@ -81,7 +81,7 @@ export default function AdminMessages() {
           <p className="text-sm mt-1" style={{ color: t.textMuted }}>Customer messages will appear here</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-5 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 items-start">
 
           {/* Message List */}
           <div className="lg:col-span-2 space-y-2">

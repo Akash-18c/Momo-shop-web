@@ -178,15 +178,15 @@ export default function AdminMenu() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-2">
         <div>
-          <h1 className="text-2xl font-black" style={{ color: t.text, fontFamily: 'Poppins,sans-serif' }}>Manage Menu</h1>
-          <p className="text-sm mt-0.5" style={{ color: t.textMuted }}>{foods.length} items total</p>
+          <h1 className="text-xl sm:text-2xl font-black" style={{ color: t.text, fontFamily: 'Poppins,sans-serif' }}>Manage Menu</h1>
+          <p className="text-xs sm:text-sm mt-0.5" style={{ color: t.textMuted }}>{foods.length} items total</p>
         </div>
         <motion.button whileTap={{ scale: 0.95 }} onClick={openAdd}
-          className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-black"
+          className="flex items-center gap-1.5 px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-black flex-shrink-0"
           style={{ background: 'linear-gradient(135deg,#c9a84c,#f0d060)', color: '#1a0e00', boxShadow: '0 4px 16px rgba(201,168,76,0.3)' }}>
-          <FiPlus size={15} /> Add Item
+          <FiPlus size={14} /> Add Item
         </motion.button>
       </div>
 
@@ -195,7 +195,7 @@ export default function AdminMenu() {
           <div className="w-8 h-8 border-4 rounded-full animate-spin" style={{ borderColor: '#c9a84c', borderTopColor: 'transparent' }} />
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
           {foods.map((food, i) => (
             <motion.div key={food._id} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.04 }}
               className="rounded-2xl p-4 flex gap-3 transition-all"
