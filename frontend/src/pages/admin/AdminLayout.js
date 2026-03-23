@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback, createContext, useContext } from 'react';
-import { Outlet, NavLink, useNavigate, Link } from 'react-router-dom';
+import { Outlet, NavLink, useNavigate, useLocation, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   FiGrid, FiShoppingBag, FiImage, FiTag, FiMenu, FiLogOut,
@@ -205,11 +205,17 @@ function RefreshOverlay() {
 function RefreshButton({ t }) {
   const [spinning, setSpinning] = useState(false);
   const [showOverlay, setShowOverlay] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
   const handleRefresh = () => {
     if (spinning) return;
     setSpinning(true);
     setShowOverlay(true);
-    setTimeout(() => window.location.reload(), 1400);
+    setTimeout(() => {
+      navigate(location.pathname, { replace: true });
+      setSpinning(false);
+      setShowOverlay(false);
+    }, 1400);
   };
   return (
     <>
