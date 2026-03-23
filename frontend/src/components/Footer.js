@@ -88,9 +88,9 @@ export default function Footer() {
             <h4 className="text-white font-bold text-[10px] uppercase tracking-widest mb-4">Contact Us</h4>
             <ul className="space-y-3">
               {[
-                { Icon: FiPhone,  label: 'Phone',    value: '7365850429',           href: 'tel:7365850429' },
-                { Icon: FiMail,   label: 'Email',    value: 'mdbrestrocafe@gmail.com', href: 'mailto:mdbrestrocafe@gmail.com' },
-                { Icon: FiMapPin, label: 'Location', value: 'Egra, West Bengal',    href: null },
+                { Icon: FiPhone,  label: 'Phone',    value: '+91 7365850429',              href: 'tel:+917365850429' },
+                { Icon: FiMail,   label: 'Email',    value: 'mdb.restrocafe@gmail.com',    href: 'mailto:mdb.restrocafe@gmail.com' },
+                { Icon: FiMapPin, label: 'Location', value: 'Egra, near SBI bank, opposite Nabajiban nursing home', href: null },
               ].map(({ Icon, label, value, href }) => (
                 <li key={label}>
                   {href

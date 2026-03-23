@@ -16,20 +16,20 @@ const INFO = [
   {
     icon: FiPhone, label: 'Call Us',
     value: '+91 7365850429', sub: 'Mon–Sun, 10 AM – 10 PM',
-    href: 'tel:7365850429',
+    href: 'tel:+917365850429',
     gradient: 'linear-gradient(135deg, #c9a84c, #f0d060)',
     iconColor: '#1a0e00',
   },
   {
     icon: FiMail, label: 'Email Us',
-    value: 'mdbrestrocafe@gmail.com', sub: 'Reply within 24 hours',
-    href: 'mailto:mdbrestrocafe@gmail.com',
+    value: 'mdb.restrocafe@gmail.com', sub: 'Reply within 24 hours',
+    href: 'mailto:mdb.restrocafe@gmail.com',
     gradient: 'linear-gradient(135deg, rgba(201,168,76,0.18), rgba(240,208,96,0.28))',
     iconColor: '#c9a84c',
   },
   {
     icon: FiMapPin, label: 'Location',
-    value: 'Egra, West Bengal', sub: 'MDB RESTROCAFE · Dine-in & Takeaway',
+    value: 'Egra, near SBI bank', sub: 'Opposite Nabajiban nursing home',
     href: 'https://maps.app.goo.gl/4Zi4GmqbJtVG3xEm8',
     gradient: 'linear-gradient(135deg, rgba(201,168,76,0.18), rgba(240,208,96,0.28))',
     iconColor: '#c9a84c',
@@ -217,7 +217,7 @@ export default function Contact() {
                     </div>
                     <div>
                       <p className="font-bold text-white text-sm">Our Location</p>
-                      <p className="text-[10px] text-gray-400">Egra, West Bengal</p>
+                      <p className="text-[10px] text-gray-400">Egra, near SBI bank</p>
                     </div>
                   </div>
                   <a href="https://maps.app.goo.gl/4Zi4GmqbJtVG3xEm8" target="_blank" rel="noreferrer"
@@ -243,7 +243,7 @@ export default function Contact() {
                 <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.2em] mb-3 sm:mb-4" style={{ color: '#c9a84c' }}>Quick Contact</p>
 
                 <div className="space-y-1.5 sm:space-y-2 mb-4 sm:mb-5">
-                  <a href="tel:7365850429"
+                  <a href="tel:+917365850429"
                     className="flex items-center gap-3 p-2.5 sm:p-3 rounded-2xl hover:bg-[#1a2035] transition-colors group">
                     <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center flex-shrink-0"
                       style={{ background: 'linear-gradient(135deg, #c9a84c, #f0d060)' }}>
@@ -255,7 +255,7 @@ export default function Contact() {
                     </div>
                   </a>
 
-                  <a href="mailto:mdbrestrocafe@gmail.com"
+                  <a href="mailto:mdb.restrocafe@gmail.com"
                     className="flex items-center gap-3 p-2.5 sm:p-3 rounded-2xl hover:bg-[#1a2035] transition-colors group">
                     <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center flex-shrink-0"
                       style={{ background: 'rgba(201,168,76,0.15)', border: '1px solid rgba(201,168,76,0.25)' }}>
@@ -263,7 +263,7 @@ export default function Contact() {
                     </div>
                     <div className="min-w-0">
                       <p className="text-[10px] text-gray-400 font-medium">Email Us</p>
-                      <p className="font-bold text-white text-xs sm:text-sm group-hover:text-[#c9a84c] transition-colors truncate">mdbrestrocafe@gmail.com</p>
+                      <p className="font-bold text-white text-xs sm:text-sm group-hover:text-[#c9a84c] transition-colors truncate">mdb.restrocafe@gmail.com</p>
                     </div>
                   </a>
                 </div>
