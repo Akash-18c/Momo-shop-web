@@ -161,8 +161,11 @@ export default function AdminMenu() {
   };
 
   const handleToggle = async (id) => {
-    try { await api.patch(`/foods/${id}/toggle`); bustCache('/foods'); bustCache('/foods/featured'); fetchFoods(); }
-    catch (err) { toast.error(err.message); }
+    try {
+      await api.patch(`/foods/${id}/toggle`);
+      bustCache('/foods'); bustCache('/foods/featured');
+      setFoods(prev => prev.map(f => f._id === id ? { ...f, isAvailable: !f.isAvailable } : f));
+    } catch (err) { toast.error(err.message || 'Failed to toggle'); }
   };
 
   const inputStyle = {

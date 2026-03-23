@@ -76,38 +76,20 @@ export default function AdminOrders() {
   };
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-4">
       {/* Header */}
       <div className="flex items-center justify-between gap-2">
         <div>
           <h1 className="text-xl sm:text-2xl font-black" style={{ color: t.text, fontFamily: 'Poppins,sans-serif' }}>Orders</h1>
           <p className="text-xs sm:text-sm mt-0.5" style={{ color: t.textMuted }}>
-            {displayed.length} order{displayed.length !== 1 ? 's' : ''}
-            {date ? ` on ${new Date(date + 'T00:00:00').toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}` : ' total'}
+            {displayed.length} order{displayed.length !== 1 ? 's' : ''}{date ? ` · ${new Date(date+'T00:00:00').toLocaleDateString('en-IN',{day:'numeric',month:'short'})}` : ''}
           </p>
-        </div>
-        <div className="flex flex-wrap items-center gap-1.5">
-          <div className="relative flex items-center">
-            <FiCalendar size={12} className="absolute left-2.5 pointer-events-none" style={{ color: t.textMuted }} />
-            <input type="date" value={date} max={todayStr()} onChange={e => setDate(e.target.value)}
-              className="text-xs rounded-xl pl-7 pr-2 py-2 focus:outline-none"
-              style={inputCls} />
-          </div>
-          <div className="relative flex items-center">
-            <FiFilter size={12} className="absolute left-2.5 pointer-events-none" style={{ color: t.textMuted }} />
-            <select value={filter} onChange={e => setFilter(e.target.value)}
-              className="text-xs rounded-xl pl-7 pr-3 py-2 focus:outline-none appearance-none"
-              style={inputCls}>
-              <option value="">All</option>
-              {STATUSES.map(s => <option key={s} value={s}>{s}</option>)}
-            </select>
-          </div>
         </div>
       </div>
 
-      {/* Quick shortcuts */}
-      <div className="flex flex-wrap gap-2">
-        {[{ label: 'Today', val: todayStr() }, { label: 'Yesterday', val: new Date(Date.now() - 86400000).toISOString().split('T')[0] }, { label: 'All', val: '' }]
+      {/* Filters row */}
+      <div className="flex flex-wrap gap-2 items-center">
+        {[{ label: 'Today', val: todayStr() }, { label: 'Yesterday', val: new Date(Date.now()-86400000).toISOString().split('T')[0] }, { label: 'All', val: '' }]
           .map(({ label, val }) => (
             <button key={label} onClick={() => setDate(val)}
               className="text-xs px-3 py-1.5 rounded-xl font-semibold transition-all"
@@ -119,6 +101,21 @@ export default function AdminOrders() {
               {label}
             </button>
           ))}
+        <div className="relative flex items-center">
+          <FiCalendar size={12} className="absolute left-2.5 pointer-events-none" style={{ color: t.textMuted }} />
+          <input type="date" value={date} max={todayStr()} onChange={e => setDate(e.target.value)}
+            className="text-xs rounded-xl pl-7 pr-2 py-1.5 focus:outline-none"
+            style={inputCls} />
+        </div>
+        <div className="relative flex items-center">
+          <FiFilter size={12} className="absolute left-2.5 pointer-events-none" style={{ color: t.textMuted }} />
+          <select value={filter} onChange={e => setFilter(e.target.value)}
+            className="text-xs rounded-xl pl-7 pr-3 py-1.5 focus:outline-none appearance-none"
+            style={inputCls}>
+            <option value="">All Status</option>
+            {STATUSES.map(s => <option key={s} value={s}>{s}</option>)}
+          </select>
+        </div>
       </div>
 
       {loading ? (

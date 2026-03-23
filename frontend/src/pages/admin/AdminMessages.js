@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiMail, FiPhone, FiTrash2, FiCheck, FiClock, FiMessageSquare, FiInbox, FiChevronRight } from 'react-icons/fi';
+import { FiMail, FiPhone, FiTrash2, FiCheck, FiClock, FiMessageSquare, FiInbox, FiChevronRight, FiX } from 'react-icons/fi';
 import { FaWhatsapp } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import api from '../../services/api';
@@ -83,8 +83,8 @@ export default function AdminMessages() {
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 items-start">
 
-          {/* Message List */}
-          <div className="lg:col-span-2 space-y-2">
+          {/* Message List — hidden on mobile when a message is selected */}
+          <div className={`lg:col-span-2 space-y-2 ${selected ? 'hidden lg:block' : ''}`}>
             {messages.map((msg, i) => {
               const [c1, c2] = avatarGrad(msg.name);
               const isSelected = selected?._id === msg._id;
@@ -140,7 +140,7 @@ export default function AdminMessages() {
             })}
           </div>
 
-          {/* Detail Panel */}
+          {/* Detail Panel — full screen on mobile */}
           <div className="lg:col-span-3">
             <AnimatePresence mode="wait">
               {selected ? (() => {
@@ -148,117 +148,102 @@ export default function AdminMessages() {
                 return (
                   <motion.div key={selected._id}
                     initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}
-                    className="rounded-2xl overflow-hidden sticky top-6"
+                    className="rounded-2xl overflow-hidden lg:sticky lg:top-6"
                     style={{ border: '1px solid rgba(201,168,76,0.22)', boxShadow: '0 8px 40px rgba(0,0,0,0.2)' }}>
 
                     <div className="h-[3px]" style={{ background: 'linear-gradient(90deg,transparent,#c9a84c,#f0d060,#c9a84c,transparent)' }} />
 
                     {/* panel header */}
-                    <div className="px-6 py-5 flex items-start justify-between gap-4"
-                      style={{
-                        background: dark
-                          ? 'linear-gradient(135deg,#0f0d00,#1c1400 60%,#141420)'
-                          : 'linear-gradient(135deg,rgba(201,168,76,0.08),rgba(201,168,76,0.03))',
-                        borderBottom: `1px solid ${t.border}`,
-                      }}>
-                      <div className="flex items-center gap-4">
-                        <div className="w-16 h-16 rounded-2xl flex items-center justify-center font-black text-2xl flex-shrink-0"
-                          style={{ background: `linear-gradient(135deg,${c1}33,${c2}22)`, color: c1, border: `2px solid ${c1}55`, boxShadow: `0 0 24px ${c1}22` }}>
+                    <div className="px-4 sm:px-6 py-4 flex items-start justify-between gap-3"
+                      style={{ background: dark ? 'linear-gradient(135deg,#0f0d00,#1c1400 60%,#141420)' : 'linear-gradient(135deg,rgba(201,168,76,0.08),rgba(201,168,76,0.03))', borderBottom: `1px solid ${t.border}` }}>
+                      <div className="flex items-center gap-3">
+                        <div className="w-12 h-12 rounded-2xl flex items-center justify-center font-black text-xl flex-shrink-0"
+                          style={{ background: `linear-gradient(135deg,${c1}33,${c2}22)`, color: c1, border: `2px solid ${c1}55` }}>
                           {selected.name.charAt(0).toUpperCase()}
                         </div>
-                        <div>
-                          <p className="font-black text-lg leading-tight" style={{ color: t.text }}>{selected.name}</p>
-                          <p className="text-xs mt-1 flex items-center gap-1.5" style={{ color: t.textMuted }}>
-                            <FiClock size={10} />
-                            {new Date(selected.createdAt).toLocaleString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                        <div className="min-w-0">
+                          <p className="font-black text-base leading-tight truncate" style={{ color: t.text }}>{selected.name}</p>
+                          <p className="text-[10px] mt-0.5 flex items-center gap-1" style={{ color: t.textMuted }}>
+                            <FiClock size={9} />
+                            {new Date(selected.createdAt).toLocaleString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
                           </p>
-                          {!selected.isRead && (
-                            <span className="inline-flex items-center gap-1 mt-1.5 text-[10px] font-bold px-2 py-0.5 rounded-full"
-                              style={{ background: 'rgba(201,168,76,0.15)', color: '#c9a84c', border: '1px solid rgba(201,168,76,0.3)' }}>
-                              <div className="w-1.5 h-1.5 rounded-full bg-[#c9a84c] animate-pulse" /> Unread
-                            </span>
-                          )}
                         </div>
                       </div>
-                      <div className="flex items-center gap-2 flex-shrink-0">
+                      <div className="flex items-center gap-1.5 flex-shrink-0">
+                        {/* back button on mobile */}
+                        <button onClick={() => setSelected(null)}
+                          className="lg:hidden w-8 h-8 rounded-xl flex items-center justify-center transition-all"
+                          style={{ background: dark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)', color: t.textMuted }}>
+                          <FiX size={14} />
+                        </button>
                         {!selected.isRead && (
                           <button onClick={() => markRead(selected._id)}
-                            className="w-9 h-9 rounded-xl flex items-center justify-center transition-all"
-                            style={{ background: 'rgba(34,197,94,0.1)', color: '#4ade80', border: '1px solid rgba(34,197,94,0.25)' }}
-                            title="Mark as read">
-                            <FiCheck size={15} />
+                            className="w-8 h-8 rounded-xl flex items-center justify-center transition-all"
+                            style={{ background: 'rgba(34,197,94,0.1)', color: '#4ade80', border: '1px solid rgba(34,197,94,0.25)' }}>
+                            <FiCheck size={13} />
                           </button>
                         )}
                         <button onClick={() => deleteMsg(selected._id)}
-                          className="w-9 h-9 rounded-xl flex items-center justify-center transition-all"
-                          style={{ background: 'rgba(239,68,68,0.1)', color: '#f87171', border: '1px solid rgba(239,68,68,0.25)' }}
-                          title="Delete">
-                          <FiTrash2 size={15} />
+                          className="w-8 h-8 rounded-xl flex items-center justify-center transition-all"
+                          style={{ background: 'rgba(239,68,68,0.1)', color: '#f87171', border: '1px solid rgba(239,68,68,0.25)' }}>
+                          <FiTrash2 size={13} />
                         </button>
                       </div>
                     </div>
 
-                    <div className="p-6 space-y-4" style={{ background: t.card }}>
+                    <div className="p-4 sm:p-6 space-y-3" style={{ background: t.card }}>
                       {/* contact chips */}
                       <div className="flex flex-wrap gap-2">
                         <a href={`mailto:${selected.email}`}
-                          className="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all hover:scale-105"
+                          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold"
                           style={{ background: 'rgba(201,168,76,0.1)', color: '#c9a84c', border: '1px solid rgba(201,168,76,0.25)' }}>
-                          <FiMail size={12} /> {selected.email}
+                          <FiMail size={11} /> {selected.email}
                         </a>
                         {selected.phone && (
                           <a href={`tel:${selected.phone}`}
-                            className="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all hover:scale-105"
+                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold"
                             style={{ background: dark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)', color: t.text, border: `1px solid ${t.border}` }}>
-                            <FiPhone size={12} /> {selected.phone}
+                            <FiPhone size={11} /> {selected.phone}
                           </a>
                         )}
                       </div>
 
-                      {/* subject */}
                       {selected.subject && (
-                        <div className="px-4 py-3 rounded-xl"
-                          style={{ background: dark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)', border: `1px solid ${t.border}` }}>
+                        <div className="px-3 py-2.5 rounded-xl" style={{ background: dark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)', border: `1px solid ${t.border}` }}>
                           <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: t.textMuted }}>Subject</p>
                           <p className="text-sm font-semibold" style={{ color: t.text }}>{selected.subject}</p>
                         </div>
                       )}
 
-                      {/* message body */}
                       <div className="rounded-2xl overflow-hidden" style={{ border: '1px solid rgba(201,168,76,0.18)' }}>
-                        <div className="px-4 py-3 flex items-center gap-2"
-                          style={{ background: 'linear-gradient(135deg,rgba(201,168,76,0.1),rgba(201,168,76,0.04))', borderBottom: '1px solid rgba(201,168,76,0.18)' }}>
-                          <div className="w-6 h-6 rounded-lg flex items-center justify-center"
-                            style={{ background: 'rgba(201,168,76,0.2)' }}>
-                            <FiMessageSquare size={11} style={{ color: '#c9a84c' }} />
-                          </div>
+                        <div className="px-3 py-2 flex items-center gap-2" style={{ background: 'rgba(201,168,76,0.08)', borderBottom: '1px solid rgba(201,168,76,0.18)' }}>
+                          <FiMessageSquare size={11} style={{ color: '#c9a84c' }} />
                           <p className="text-[10px] font-black uppercase tracking-widest" style={{ color: '#c9a84c' }}>Message</p>
                         </div>
-                        <div className="p-5" style={{ background: dark ? 'rgba(255,255,255,0.015)' : 'rgba(0,0,0,0.02)' }}>
+                        <div className="p-4" style={{ background: dark ? 'rgba(255,255,255,0.015)' : 'rgba(0,0,0,0.02)' }}>
                           <p className="text-sm leading-relaxed whitespace-pre-wrap" style={{ color: t.text }}>{selected.message}</p>
                         </div>
                       </div>
 
-                      {/* action buttons */}
-                      <div className="grid grid-cols-3 gap-2.5 pt-1">
+                      <div className="grid grid-cols-3 gap-2">
                         <a href={`mailto:${selected.email}`}
-                          className="flex flex-col items-center gap-1.5 py-3.5 rounded-2xl text-xs font-bold transition-all hover:scale-105"
+                          className="flex flex-col items-center gap-1 py-3 rounded-2xl text-xs font-bold"
                           style={{ background: 'rgba(201,168,76,0.1)', color: '#c9a84c', border: '1px solid rgba(201,168,76,0.25)' }}>
-                          <FiMail size={16} /> Email
+                          <FiMail size={15} /> Email
                         </a>
                         {selected.phone ? (
-                          <a href={`https://wa.me/${selected.phone.replace(/[^0-9]/g,'')}?text=${encodeURIComponent(`Hi ${selected.name}, thank you for contacting MDB RESTROCAFE. Regarding your message: "${selected.message}"`)}`}
+                          <a href={`https://wa.me/${selected.phone.replace(/[^0-9]/g,'')}?text=${encodeURIComponent(`Hi ${selected.name}, thank you for contacting MDB RESTROCAFE.`)}`}
                             target="_blank" rel="noreferrer"
-                            className="flex flex-col items-center gap-1.5 py-3.5 rounded-2xl text-xs font-bold transition-all hover:scale-105"
+                            className="flex flex-col items-center gap-1 py-3 rounded-2xl text-xs font-bold"
                             style={{ background: 'rgba(37,211,102,0.1)', color: '#25d366', border: '1px solid rgba(37,211,102,0.25)' }}>
-                            <FaWhatsapp size={16} /> WhatsApp
+                            <FaWhatsapp size={15} /> WhatsApp
                           </a>
                         ) : <div />}
                         {selected.phone ? (
                           <a href={`tel:${selected.phone}`}
-                            className="flex flex-col items-center gap-1.5 py-3.5 rounded-2xl text-xs font-bold transition-all hover:scale-105"
+                            className="flex flex-col items-center gap-1 py-3 rounded-2xl text-xs font-bold"
                             style={{ background: 'rgba(59,130,246,0.1)', color: '#60a5fa', border: '1px solid rgba(59,130,246,0.25)' }}>
-                            <FiPhone size={16} /> Call
+                            <FiPhone size={15} /> Call
                           </a>
                         ) : <div />}
                       </div>
@@ -267,14 +252,10 @@ export default function AdminMessages() {
                 );
               })() : (
                 <motion.div key="empty" initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                  className="rounded-2xl border-dashed p-20 text-center sticky top-6 flex flex-col items-center justify-center"
-                  style={{ border: `2px dashed ${t.border}`, background: dark ? 'rgba(255,255,255,0.01)' : 'rgba(0,0,0,0.02)', minHeight: '320px' }}>
-                  <div className="w-20 h-20 rounded-3xl flex items-center justify-center mb-5"
-                    style={{ background: 'rgba(201,168,76,0.08)', border: '1px solid rgba(201,168,76,0.12)' }}>
-                    <FiMessageSquare size={32} style={{ color: 'rgba(201,168,76,0.25)' }} />
-                  </div>
-                  <p className="font-bold" style={{ color: t.textMuted }}>Select a message</p>
-                  <p className="text-xs mt-1" style={{ color: t.textMuted }}>Click any message from the list to read it</p>
+                  className="hidden lg:flex rounded-2xl border-dashed p-16 text-center flex-col items-center justify-center"
+                  style={{ border: `2px dashed ${t.border}`, minHeight: '280px' }}>
+                  <FiMessageSquare size={28} className="mb-3 opacity-20" style={{ color: t.textMuted }} />
+                  <p className="font-bold text-sm" style={{ color: t.textMuted }}>Select a message</p>
                 </motion.div>
               )}
             </AnimatePresence>
