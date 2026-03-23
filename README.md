@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🍜 MDB RESTROCAFE
+#  MDB RESTROCAFE
 
 ### *"Love at First Bite"*
 
