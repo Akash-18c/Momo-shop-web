@@ -111,16 +111,16 @@ export default function Contact() {
             {INFO.map((item, i) => {
               const inner = (
                 <>
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300 flex-shrink-0"
+                  <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl flex items-center justify-center mb-2 sm:mb-4 group-hover:scale-110 transition-transform duration-300 flex-shrink-0"
                     style={{ background: item.gradient }}>
-                    <item.icon size={18} style={{ color: item.iconColor }} />
+                    <item.icon size={16} style={{ color: item.iconColor }} />
                   </div>
                   <p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: '#c9a84c' }}>{item.label}</p>
-                  <p className="font-bold text-white text-xs sm:text-sm leading-snug">{item.value}</p>
-                  <p className="text-[10px] sm:text-[11px] text-gray-400 mt-0.5 leading-tight">{item.sub}</p>
+                  <p className="font-bold text-white text-[10px] sm:text-sm leading-snug break-all w-full">{item.value}</p>
+                  <p className="text-[9px] sm:text-[11px] text-gray-400 mt-0.5 leading-tight">{item.sub}</p>
                 </>
               );
-              const cls = 'group flex flex-col items-center text-center p-4 sm:p-5 lg:p-6 rounded-2xl border hover:border-[#c9a84c]/50 hover:shadow-[0_8px_28px_rgba(201,168,76,0.12)] transition-all duration-300 h-full' + ' ' + 'bg-[#111827] border-[#1e2535]';
+              const cls = 'group flex flex-col items-center text-center p-3 sm:p-5 lg:p-6 rounded-2xl border hover:border-[#c9a84c]/50 hover:shadow-[0_8px_28px_rgba(201,168,76,0.12)] transition-all duration-300 h-full bg-[#111827] border-[#1e2535]';
               return (
                 <motion.div key={i} variants={fadeUp} initial="hidden" whileInView="show"
                   viewport={{ once: true }} transition={{ delay: i * 0.07 }}>
@@ -271,8 +271,8 @@ export default function Contact() {
                 <div className="border-t border-[#1e2535] pt-3 sm:pt-4">
                   <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-gray-400 mb-2.5 sm:mb-3">Follow Us</p>
                   <div className="flex gap-2">
-                    {[{ Icon: FiInstagram, label: 'Instagram' }, { Icon: FiFacebook, label: 'Facebook' }].map(({ Icon, label }) => (
-                      <a key={label} href="#" aria-label={label}
+                    {[{ Icon: FiInstagram, label: 'Instagram', href: 'https://www.instagram.com/mdb.restrocafe/' }, { Icon: FiFacebook, label: 'Facebook', href: 'https://www.facebook.com/people/MDB-Restrocafe/61586971568553/' }].map(({ Icon, label, href }) => (
+                      <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={label}
                         className="flex items-center justify-center gap-1.5 flex-1 py-2 sm:py-2.5 rounded-xl text-xs font-bold transition-all text-gray-400 hover:text-[#c9a84c] bg-[#1a2035] hover:bg-[#c9a84c]/10 border border-[#1e2535] hover:border-[#c9a84c]/25">
                         <Icon size={13} /> {label}
                       </a>
