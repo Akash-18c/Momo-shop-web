@@ -479,18 +479,18 @@ export default function AdminLayout() {
 
         <div className="flex-1 flex flex-col overflow-hidden">
           {/* header */}
-          <header className="px-4 sm:px-6 py-3.5 flex items-center gap-4 flex-shrink-0 transition-colors duration-300"
+          <header className="px-3 sm:px-6 py-3 flex items-center gap-2 sm:gap-4 flex-shrink-0 transition-colors duration-300"
             style={{ background: t.header, borderBottom: `1px solid ${t.border}` }}>
             <button onClick={() => setSidebarOpen(true)}
-              className="lg:hidden p-2 rounded-xl transition-all"
+              className="lg:hidden p-2 rounded-xl flex-shrink-0 transition-all"
               style={{ background: t.navHover, color: t.textMuted }}>
               <FiMenu size={18} />
             </button>
-            <div className="flex-1">
-              <h1 className="font-black text-base" style={{ color: t.text, fontFamily: 'Poppins,sans-serif' }}>Admin Dashboard</h1>
-              <p className="text-xs" style={{ color: t.textMuted }}>MDB RESTROCAFE Management</p>
+            <div className="flex-1 min-w-0">
+              <h1 className="font-black text-sm sm:text-base truncate" style={{ color: t.text, fontFamily: 'Poppins,sans-serif' }}>Admin Dashboard</h1>
+              <p className="text-[10px] sm:text-xs hidden sm:block" style={{ color: t.textMuted }}>MDB RESTROCAFE Management</p>
             </div>
-            <div className="flex items-center gap-2.5">
+            <div className="flex items-center gap-1.5 sm:gap-2.5 flex-shrink-0">
               {/* live dot */}
               <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl"
                 style={{ background: 'rgba(34,197,94,0.08)', border: '1px solid rgba(34,197,94,0.2)' }}>
@@ -499,8 +499,18 @@ export default function AdminLayout() {
               </div>
               {/* refresh */}
               <RefreshButton t={t} />
-              {/* theme toggle */}
-              <ThemeToggle dark={dark} onToggle={toggleTheme} />
+              {/* theme toggle — icon only on mobile */}
+              <motion.button
+                onClick={toggleTheme}
+                whileTap={{ scale: 0.9 }}
+                className="flex items-center justify-center rounded-xl transition-all"
+                style={{
+                  width: 36, height: 36,
+                  background: dark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)',
+                  border: dark ? '1px solid rgba(255,255,255,0.12)' : '1px solid rgba(0,0,0,0.1)',
+                }}>
+                {dark ? <FiSun size={15} color="#c9a84c" /> : <FiMoon size={15} color="#64748b" />}
+              </motion.button>
               {/* bell */}
               <BellButton notifs={notifs} t={t} />
             </div>
