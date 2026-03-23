@@ -71,10 +71,10 @@ function DayHistoryTable({ stats, t }) {
 
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}
-      className="rounded-2xl p-6"
+      className="rounded-2xl p-3 sm:p-6"
       style={{ background: t.card, border: `1px solid ${t.border}` }}>
 
-      <div className="flex items-center justify-between flex-wrap gap-3 mb-4">
+      <div className="flex items-center justify-between flex-wrap gap-2 mb-3">
         <div>
           <h2 className="font-black text-base" style={{ color: t.text }}>30-Day Sales History</h2>
           <p className="text-xs mt-0.5" style={{ color: t.textMuted }}>Click any row or pick a date to see that day's orders</p>
@@ -240,10 +240,10 @@ export default function AdminDashboard() {
     <div className="space-y-6">
 
       {/* Header */}
-      <div className="flex items-center justify-between flex-wrap gap-3">
+      <div className="flex items-start justify-between gap-2">
         <div>
-          <h1 className="text-2xl font-black" style={{ color: t.text, fontFamily: 'Poppins,sans-serif' }}>Dashboard</h1>
-          <p className="text-sm mt-0.5" style={{ color: t.textMuted }}>Real-time analytics & insights</p>
+          <h1 className="text-xl sm:text-2xl font-black" style={{ color: t.text, fontFamily: 'Poppins,sans-serif' }}>Dashboard</h1>
+          <p className="text-xs sm:text-sm mt-0.5" style={{ color: t.textMuted }}>Real-time analytics & insights</p>
         </div>
         <LiveClock t={t} />
       </div>
@@ -277,7 +277,7 @@ export default function AdminDashboard() {
       )}
 
       {/* Stat Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
         {[
           { icon: FiShoppingBag, label: 'Total Orders',    value: stats?.totalOrders || 0,                     grad: 'from-blue-600 to-blue-500',     shadow: 'shadow-blue-900/40'   },
           { icon: FiDollarSign,  label: 'Total Revenue',   value: `₹${(stats?.totalRevenue || 0).toFixed(0)}`, grad: 'from-green-600 to-emerald-500', shadow: 'shadow-green-900/40'  },
@@ -285,15 +285,15 @@ export default function AdminDashboard() {
           { icon: FiPackage,     label: "Today's Orders",  value: stats?.todayOrders || 0,                     grad: 'from-purple-600 to-violet-500', shadow: 'shadow-purple-900/40' },
         ].map((c, i) => (
           <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}
-            className="rounded-2xl p-5 transition-all"
+            className="rounded-2xl p-3 sm:p-5 transition-all"
             style={{ background: t.card, border: `1px solid ${t.border}` }}
             onMouseEnter={e => e.currentTarget.style.borderColor = dark ? 'rgba(255,255,255,0.14)' : 'rgba(0,0,0,0.14)'}
             onMouseLeave={e => e.currentTarget.style.borderColor = t.border}>
-            <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${c.grad} flex items-center justify-center text-white shadow-lg ${c.shadow} mb-4`}>
-              <c.icon size={17} />
+            <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br ${c.grad} flex items-center justify-center text-white shadow-lg ${c.shadow} mb-2 sm:mb-4`}>
+              <c.icon size={15} />
             </div>
-            <p className="text-2xl font-black mb-0.5" style={{ color: t.text }}>{c.value}</p>
-            <p className="text-xs font-medium" style={{ color: t.textMuted }}>{c.label}</p>
+            <p className="text-base sm:text-2xl font-black mb-0.5 truncate" style={{ color: t.text }}>{c.value}</p>
+            <p className="text-[10px] sm:text-xs font-medium leading-tight" style={{ color: t.textMuted }}>{c.label}</p>
           </motion.div>
         ))}
       </div>
@@ -301,18 +301,18 @@ export default function AdminDashboard() {
       {/* Status Breakdown */}
       {stats?.statusBreakdown?.length > 0 && (
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
-          className="rounded-2xl p-6"
+          className="rounded-2xl p-3 sm:p-6"
           style={{ background: t.card, border: `1px solid ${t.border}` }}>
-          <h2 className="font-black text-base mb-4" style={{ color: t.text }}>Order Status Breakdown</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+          <h2 className="font-black text-sm sm:text-base mb-3" style={{ color: t.text }}>Order Status Breakdown</h2>
+          <div className="grid grid-cols-3 lg:grid-cols-6 gap-2">
             {stats.statusBreakdown.map((s, i) => (
-              <div key={i} className="rounded-xl p-3"
+              <div key={i} className="rounded-xl p-2 sm:p-3"
                 style={{ background: dark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.04)', border: `1px solid ${t.border}` }}>
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="w-2 h-2 rounded-full" style={{ background: statusColors[s._id] || '#6b7280' }} />
-                  <p className="text-xs font-medium truncate" style={{ color: t.textMuted }}>{s._id}</p>
+                <div className="flex items-center gap-1 mb-1">
+                  <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: statusColors[s._id] || '#6b7280' }} />
+                  <p className="text-[9px] sm:text-xs font-medium truncate" style={{ color: t.textMuted }}>{s._id}</p>
                 </div>
-                <p className="text-xl font-black" style={{ color: t.text }}>{s.count}</p>
+                <p className="text-base sm:text-xl font-black" style={{ color: t.text }}>{s.count}</p>
               </div>
             ))}
           </div>
@@ -321,16 +321,16 @@ export default function AdminDashboard() {
 
       {/* Revenue Chart */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
-        className="rounded-2xl p-6"
+        className="rounded-2xl p-3 sm:p-6"
         style={{ background: t.card, border: `1px solid ${t.border}` }}>
-        <div className="flex items-center justify-between mb-5">
+        <div className="flex items-center justify-between mb-3 sm:mb-5">
           <div>
-            <h2 className="font-black text-base" style={{ color: t.text }}>Revenue Trend</h2>
+            <h2 className="font-black text-sm sm:text-base" style={{ color: t.text }}>Revenue Trend</h2>
             <p className="text-xs mt-0.5" style={{ color: t.textMuted }}>Last 30 days</p>
           </div>
           <div className="w-3 h-3 rounded-full" style={{ background: '#c9a84c' }} />
         </div>
-        <div style={{ height: '240px' }}>
+        <div style={{ height: '180px' }}>
           {stats?.dailySales?.length > 0
             ? <Line data={lineData} options={chartOptions} />
             : <div className="flex items-center justify-center h-full text-sm" style={{ color: t.textMuted }}>No data yet</div>}
@@ -346,7 +346,7 @@ export default function AdminDashboard() {
           className="rounded-2xl overflow-hidden"
           style={{ background: t.card, border: `1px solid ${t.border}` }}>
 
-          <div className="flex items-center justify-between px-6 py-5"
+          <div className="flex items-center justify-between px-4 sm:px-6 py-4 sm:py-5"
             style={{
               borderBottom: `1px solid ${t.border}`,
               background: dark
@@ -354,16 +354,16 @@ export default function AdminDashboard() {
                 : 'linear-gradient(135deg,rgba(201,168,76,0.06),transparent)',
             }}>
             <div>
-              <h2 className="font-black text-base" style={{ color: t.text, fontFamily: 'Poppins,sans-serif' }}>Top Selling Items</h2>
-              <p className="text-xs mt-0.5" style={{ color: t.textMuted }}>Ranked by units sold · all time</p>
+              <h2 className="font-black text-sm sm:text-base" style={{ color: t.text, fontFamily: 'Poppins,sans-serif' }}>Top Selling Items</h2>
+              <p className="text-xs mt-0.5" style={{ color: t.textMuted }}>Ranked by units sold</p>
             </div>
-            <div className="flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-xl"
+            <div className="flex items-center gap-1.5 text-xs font-bold px-2 sm:px-3 py-1.5 rounded-xl"
               style={{ background: 'rgba(201,168,76,0.12)', color: '#c9a84c', border: '1px solid rgba(201,168,76,0.2)' }}>
               <FiTrendingUp size={11} /> {stats.popularItems.length} items
             </div>
           </div>
 
-          <div className="p-5 space-y-2.5">
+          <div className="p-3 sm:p-5 space-y-2">
             {stats.popularItems.map((item, i) => {
               const pct = Math.round((item.count / (stats.popularItems[0]?.count || 1)) * 100);
               const RANK_META = [
@@ -379,7 +379,7 @@ export default function AdminDashboard() {
               return (
                 <motion.div key={i}
                   initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.65 + i * 0.06 }}
-                  className="flex items-center gap-4 p-4 rounded-2xl border transition-all"
+                  className="flex items-center gap-2 sm:gap-4 p-2.5 sm:p-4 rounded-2xl border transition-all"
                   style={{
                     background: i < 3
                       ? (dark ? 'rgba(255,255,255,0.025)' : 'rgba(0,0,0,0.025)')
@@ -388,7 +388,7 @@ export default function AdminDashboard() {
                     boxShadow: i < 3 ? m.glow : 'none',
                   }}>
 
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center text-sm font-black flex-shrink-0"
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center text-xs sm:text-sm font-black flex-shrink-0"
                     style={{ background: i < 3 ? m.num : (dark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'),
                       color: i < 3 ? m.numTxt : t.textMuted,
                       border: `1.5px solid ${m.ring}`, boxShadow: i < 3 ? `0 2px 8px ${m.ring}` : 'none' }}>
@@ -396,16 +396,16 @@ export default function AdminDashboard() {
                   </div>
 
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1.5">
-                      <p className="text-sm font-bold truncate" style={{ color: i < 3 ? m.nameTxt : t.text }}>{item._id}</p>
+                    <div className="flex items-center gap-1.5 mb-1">
+                      <p className="text-xs sm:text-sm font-bold truncate" style={{ color: i < 3 ? m.nameTxt : t.text }}>{item._id}</p>
                       {i < 3 && (
-                        <span className="text-[9px] font-black px-1.5 py-0.5 rounded-md tracking-widest flex-shrink-0"
+                        <span className="hidden sm:inline text-[9px] font-black px-1.5 py-0.5 rounded-md tracking-widest flex-shrink-0"
                           style={{ background: m.ring, color: m.nameTxt }}>
                           {m.label}
                         </span>
                       )}
                     </div>
-                    <div className="h-1.5 rounded-full overflow-hidden"
+                    <div className="h-1 sm:h-1.5 rounded-full overflow-hidden"
                       style={{ background: dark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.08)' }}>
                       <motion.div className="h-full rounded-full"
                         initial={{ width: 0 }} animate={{ width: `${pct}%` }}
@@ -414,16 +414,16 @@ export default function AdminDashboard() {
                     </div>
                   </div>
 
-                  <div className="text-right flex-shrink-0 min-w-[64px]">
-                    <p className="text-base font-black" style={{ color: i < 3 ? m.nameTxt : '#c9a84c' }}>{item.count}</p>
-                    <p className="text-[10px]" style={{ color: t.textMuted }}>sold · ₹{item.revenue.toFixed(0)}</p>
+                  <div className="text-right flex-shrink-0">
+                    <p className="text-sm sm:text-base font-black" style={{ color: i < 3 ? m.nameTxt : '#c9a84c' }}>{item.count}</p>
+                    <p className="text-[10px]" style={{ color: t.textMuted }}>sold</p>
                   </div>
                 </motion.div>
               );
             })}
           </div>
 
-          <div className="mx-5 mb-5 p-3 rounded-xl flex items-center justify-between"
+          <div className="mx-3 sm:mx-5 mb-3 sm:mb-5 p-3 rounded-xl flex items-center justify-between"
             style={{ background: 'rgba(201,168,76,0.06)', border: '1px solid rgba(201,168,76,0.15)' }}>
             <span className="text-xs" style={{ color: t.textMuted }}>Total units sold</span>
             <span className="text-sm font-black" style={{ color: '#c9a84c' }}>
